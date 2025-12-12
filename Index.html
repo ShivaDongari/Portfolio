@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shiva Kumar Dongari | Data Analyst (Power BI)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* ---------- Base Styles ---------- */
+    :root {
+      --bg: #0f172a;
+      --bg-alt: #020617;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.13);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 50%, #000 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 24px 12px 40px;
+    }
+
+    @media (min-width: 900px) {
+      body {
+        padding: 32px 40px 64px;
+      }
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* ---------- Layout ---------- */
+    .layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      gap: 24px;
+    }
+
+    @media (min-width: 1000px) {
+      .layout {
+        grid-template-columns: 280px 1fr;
+        align-items: flex-start;
+      }
+    }
+
+    /* ---------- Left Sidebar ---------- */
+    .sidebar {
+      position: sticky;
+      top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.7));
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 20px 18px 18px;
+      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(20px);
+    }
+
+    .avatar-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 999px;
+      border: 2px solid rgba(148, 163, 184, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 28px;
+      color: #e5e7eb;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.3), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.3), transparent 55%);
+    }
+
+    .name {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.1));
+    }
+
+    .role-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+    }
+
+    .shortline {
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .sidebar-section-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+    }
+
+    .contact-list {
+      list-style: none;
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .contact-list li {
+      margin-bottom: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 12px;
+    }
+
+    .nav-links a {
+      padding: 4px 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      background: rgba(15, 23, 42, 0.85);
+      text-decoration: none;
+      color: #e5e7eb;
+    }
+
+    .nav-links a:hover {
+      border-color: var(--accent);
+    }
+
+    /* ---------- Main Content ---------- */
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    section {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: var(--radius);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 18px 18px 16px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.7);
+    }
+
+    @media (min-width: 900px) {
+      section {
+        padding: 20px 22px 18px;
+      }
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    /* ---------- About Section ---------- */
+    .about-text {
+      font-size: 14px;
+      color: #e5e7eb;
+      margin-bottom: 10px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 800px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mini-heading {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
+      margin-bottom: 5px;
+    }
+
+    .bullet-list {
+      list-style: none;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    .bullet-list li {
+      margin-bottom: 4px;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .bullet-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 12px;
+    }
+
+    /* ---------- Skills ---------- */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .skill-card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 10px 11px 9px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .skill-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .skill-tags span {
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .skill-level {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    /* ---------- Projects ---------- */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1.2fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 950px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .project-card {
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 60%),
+                  var(--card);
+      border-radius: 16px;
+      padding: 11px 12px 10px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-tag-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .project-pill {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #e5e7eb;
+    }
+
+    .project-impact {
+      font-size: 11px;
+      color: #a5b4fc;
+    }
+
+    .project-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .project-meta {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+    }
+
+    .project-body {
+      font-size: 12px;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .project-list {
+      list-style: none;
+      font-size: 12px;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .project-list li {
+      margin-bottom: 3px;
+      padding-left: 12px;
+      position: relative;
+    }
+
+    .project-list li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .project-links a {
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      text-decoration: none;
+      color: #e5e7eb;
+    }
+
+    .project-links a:hover {
+      border-color: var(--accent);
+    }
+
+    /* ---------- Evidence & Docs ---------- */
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .pill-row span {
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    /* ---------- Timeline ---------- */
+    .timeline {
+      list-style: none;
+      font-size: 13px;
+      border-left: 1px solid rgba(148, 163, 184, 0.6);
+      padding-left: 12px;
+      margin-left: 3px;
+    }
+
+    .timeline-item {
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -13px;
+      top: 6px;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .timeline-year {
+      font-size: 11px;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+    }
+
+    .timeline-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .timeline-text {
+      font-size: 12px;
+      color: var(--text-main);
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      max-width: 1100px;
+      margin: 14px auto 0;
+      font-size: 11px;
+      color: var(--text-soft);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <!-- ========== SIDEBAR ========== -->
+    <aside class="sidebar">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="avatar-circle">
+          <span>SD</span>
+        </div>
+        <div>
+          <div class="name">Shiva Kumar Dongari</div>
+          <div class="role-badge">
+            <span class="role-dot"></span>
+            <span>Power BI Developer · BI Analyst · Automation</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="shortline">
+        Building decision-ready analytics with <strong>Power BI</strong>, <strong>SQL</strong>, and automation
+        (REST APIs, PowerShell, n8n, GenAI) to reduce manual work and improve reliability.
+      </p>
+
+      <div>
+        <div class="sidebar-section-title">Quick Snapshot</div>
+        <div class="chip-row">
+          <span class="chip">Power BI (Desktop/Service)</span>
+          <span class="chip">DAX & Semantic Models</span>
+          <span class="chip">Power Query (M)</span>
+          <span class="chip">MS SQL Server</span>
+          <span class="chip">Governance (RLS/Gateway)</span>
+          <span class="chip">Automation (n8n/GenAI)</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-section-title">Contact</div>
+        <ul class="contact-list">
+          <li>Email: <a href="mailto:shiva-dongari@outlook.com">shiva-dongari@outlook.com</a></li>
+          <li>Location: Streamwood, IL (Chicago suburbs)</li>
+          <li>Work Authorization: F-1 OPT (Authorized to work in the U.S.)</li>
+          <li>LinkedIn: <a href="https://www.linkedin.com/in/shiva-dongari" target="_blank" rel="noreferrer">www.linkedin.com/in/shiva-dongari</a></li>
+          <li>GitHub: <a href="https://github.com/ShivaDongari" target="_blank" rel="noreferrer">github.com/ShivaDongari</a></li>
+          <li>Resume: <a href="https://1drv.ms/b/c/1fce87204f49702e/IQCYo_US0vnmSIwjV-gvP9oaARcJ1Oj92GqRuLTw6r5mjf8?e=aMbDHT" target="_blank" rel="noreferrer">Download PDF</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="sidebar-section-title">Navigate</div>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#evidence">Evidence</a>
+          <a href="#certs">Education</a>
+          <a href="#timeline">Timeline</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main">
+      <!-- ABOUT -->
+      <section id="about">
+        <div class="section-header">
+          <div>
+            <div class="section-title">About Me</div>
+            <div class="section-subtitle">Power BI Developer / BI Analyst · SQL · Governance · Automation</div>
+          </div>
+          <span class="pill">Open to roles in Illinois</span>
+        </div>
+
+        <p class="about-text">
+          Power BI Developer with 5+ years building decision-ready analytics using <strong>Power BI (Desktop & Service)</strong>,
+          <strong>DAX</strong>, <strong>Power Query (M)</strong>, and <strong>SQL</strong> (MS SQL Server, Snowflake, Oracle).
+          Strong in <strong>dimensional modeling</strong> and <strong>semantic model design</strong> to enable scalable self-service reporting.
+        </p>
+
+        <p class="about-text">
+          I’m also experienced in <strong>Power BI governance</strong> (workspaces, apps, gateways, refresh scheduling, shared datasets,
+          RLS/DRLS) and building lightweight automation for monitoring and repeatable reporting using <strong>REST APIs</strong>,
+          <strong>PowerShell</strong>, and <strong>n8n</strong>.
+        </p>
+
+        <div class="about-grid">
+          <div>
+            <div class="mini-heading">What I’m good at</div>
+            <ul class="bullet-list">
+              <li>End-to-end delivery: data prep → modeling → measures → UX → publish.</li>
+              <li>Measure-first reporting: reusable KPI layers, trend/variance analysis, time intelligence.</li>
+              <li>Governance + reliability: secure access, refresh health, and scalable distribution patterns.</li>
+              <li>Automation mindset: standardized outputs, monitoring dashboards, and workflow pipelines.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="mini-heading">Currently building</div>
+            <ul class="bullet-list">
+              <li>Sales analysis dashboard (from scratch: MS SQL + Power BI)</li>
+              <li>Personal AI Assistant (Python CLI) + GenAI mini tools</li>
+              <li>Job extraction pipelines from portals (n8n → CSV)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Skills Overview</div>
+            <div class="section-subtitle">Power BI · DAX · Power Query · SQL · Governance · Automation</div>
+          </div>
+          <span class="pill">Core Stack</span>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-title">Power BI</div>
+            <div class="skill-tags">
+              <span>Desktop</span><span>Service</span><span>UX / Storytelling</span><span>Bookmarks</span>
+            </div>
+            <div class="skill-level">
+              Interactive dashboards, drill-through, tooltips, meeting-ready reporting pages, performance-focused visuals.
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-title">Data Modeling & DAX</div>
+            <div class="skill-tags">
+              <span>Star Schema</span><span>Measures</span><span>Time Intelligence</span><span>Optimization</span>
+            </div>
+            <div class="skill-level">
+              Semantic models, reusable KPI layers, filter context mastery, and clean measure design practices.
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-title">Power Query (M) / ETL</div>
+            <div class="skill-tags">
+              <span>Shaping</span><span>Combine</span><span>Dataflows</span><span>Query Folding</span>
+            </div>
+            <div class="skill-level">
+              Reliable transformations, incremental refresh friendly shaping, and staging via dataflows when needed.
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-title">SQL & Databases</div>
+            <div class="skill-tags">
+              <span>MS SQL Server</span><span>Snowflake</span><span>Oracle</span><span>Views</span>
+            </div>
+            <div class="skill-level">
+              Reporting marts, analytic queries (joins/CTEs/aggregations), and modeling for BI consumption.
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-title">Administration & Governance</div>
+            <div class="skill-tags">
+              <span>Workspaces</span><span>Apps</span><span>Gateways</span><span>RLS/DRLS</span>
+            </div>
+            <div class="skill-level">
+              Secure distribution, access controls, refresh schedules, shared datasets, and governance readiness.
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-title">Automation & GenAI</div>
+            <div class="skill-tags">
+              <span>REST APIs</span><span>PowerShell</span><span>n8n</span><span>Python (basic)</span>
+            </div>
+            <div class="skill-level">
+              Workflow automation, monitoring/reporting automation, portal data extraction, and GenAI side projects.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Featured Projects</div>
+            <div class="section-subtitle">Professional work + automation & GenAI projects</div>
+          </div>
+          <span class="pill">Selection of Work</span>
+        </div>
+
+        <div class="projects-grid">
+
+          <!-- Project 1 -->
+          <article class="project-card">
+            <div class="project-tag-row">
+              <span class="project-pill">Client · Power BI</span>
+              <span class="project-impact">Impact: ↓ manual reporting · trusted KPIs</span>
+            </div>
+            <div class="project-title">Operations Pulse Dashboard (Daily & Weekly Monitoring)</div>
+            <div class="project-meta">Power BI · Semantic Model · Service delivery</div>
+            <p class="project-body">
+              Consolidated manual Excel/PowerPoint reporting into a governed Power BI solution used for leadership review.
+            </p>
+            <ul class="project-list">
+              <li>Built a centralized semantic model and standardized KPI definitions across teams.</li>
+              <li>Created daily/weekly monitoring pages with clear variance, trends, and drill paths.</li>
+              <li>Improved reliability with refresh scheduling and workspace/app distribution patterns.</li>
+            </ul>
+            <div class="project-links">
+              <a href="#">Sanitized Screenshots</a>
+              <a href="#">KPI Catalog</a>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project-card">
+            <div class="project-tag-row">
+              <span class="project-pill">Client · Sales Analytics</span>
+              <span class="project-impact">Impact: better decisions · self-service</span>
+            </div>
+            <div class="project-title">Helen of Troy — Sales & Operations Reporting</div>
+            <div class="project-meta">Power BI · DAX · Power Query · SQL</div>
+            <p class="project-body">
+              Delivered KPI dashboards for sales and operations with consistent measures and curated datasets.
+            </p>
+            <ul class="project-list">
+              <li>Developed reusable DAX measures for sales, margin, contribution, and time intelligence.</li>
+              <li>Improved usability with guided navigation, tooltips, and meeting-ready layouts.</li>
+              <li>Supported self-service by standardizing dimensions and metric calculations.</li>
+            </ul>
+            <div class="project-links">
+              <a href="#">Dashboard Walkthrough</a>
+              <a href="#">Model Diagram</a>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card">
+            <div class="project-tag-row">
+              <span class="project-pill">Client · Migration</span>
+              <span class="project-impact">Impact: modernized reporting</span>
+            </div>
+            <div class="project-title">Hudson Advisors — BI Migration & Governance Dashboards</div>
+            <div class="project-meta">Power BI · Governance · Monitoring</div>
+            <p class="project-body">
+              Migrated legacy reports to Power BI and built governance dashboards to track adoption and reliability.
+            </p>
+            <ul class="project-list">
+              <li>Migrated 15+ Excel/SSRS reports to Power BI with improved UX and performance.</li>
+              <li>Built monitoring views (refresh health, inventory, usage) using APIs/automation patterns.</li>
+              <li>Partnered with stakeholders in Agile delivery for iterative enhancements.</li>
+            </ul>
+            <div class="project-links">
+              <a href="#">Governance Views</a>
+              <a href="#">Automation Notes</a>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="project-card">
+            <div class="project-tag-row">
+              <span class="project-pill">Client · Supply Chain</span>
+              <span class="project-impact">Impact: ↑ visibility · better planning</span>
+            </div>
+            <div class="project-title">Insulectro & Orora — Materials / Distribution Analytics</div>
+            <div class="project-meta">SQL Reporting Mart · Power BI</div>
+            <p class="project-body">
+              Built dashboards for procurement, materials, and distribution performance with trusted reporting data.
+            </p>
+            <ul class="project-list">
+              <li>Created an SQL reporting mart integrating multiple sources and data-quality checks.</li>
+              <li>Delivered dashboards tracking supplier performance, procurement KPIs, and service levels.</li>
+              <li>Improved consistency by standardizing dimensions, definitions, and refresh routines.</li>
+            </ul>
+            <div class="project-links">
+              <a href="#">Dashboard Samples</a>
+              <a href="#">SQL Mart Overview</a>
+            </div>
+          </article>
+
+          <!-- Project 5 -->
+          <article class="project-card">
+            <div class="project-tag-row">
+              <span class="project-pill">Academic · Predictive Analytics</span>
+              <span class="project-impact">Impact: actionable clinical insights</span>
+            </div>
+            <div class="project-title">Predictive Analytics — Brain Tumor Management (Capstone)</div>
+            <div class="project-meta">R · SQL · Power BI · ML Models</div>
+            <p class="project-body">
+              End-to-end workflow: cleaning/EDA → modeling → insights dashboard to highlight high-risk segments.
+            </p>
+            <ul class="project-list">
+              <li>Built classification models (Random Forest, Logistic Regression) to predict follow-up needs.</li>
+              <li>Built regression models to estimate survival rate and identify top predictors.</li>
+              <li>Published an interactive Power BI dashboard for trends and segmentation.</li>
+            </ul>
+            <div class="project-links">
+              <a href="#">Case Study</a>
+              <a href="#">Dashboard Snapshot</a>
+            </div>
+          </article>
+
+          <!-- Project 6 -->
+          <article class="project-card">
+            <div class="project-tag-row">
+              <span class="project-pill">Personal · GenAI</span>
+              <span class="project-impact">Impact: scalable assistant foundation</span>
+            </div>
+            <div class="project-title">Personal AI Assistant (CLI) + GenAI Mini Tools</div>
+            <div class="project-meta">Python · LLM-ready architecture · GitHub</div>
+            <p class="project-body">
+              Building a CLI assistant that turns natural language into structured actions (tasks/reminders/workflows),
+              plus small GenAI utilities for analytics and job search.
+            </p>
+            <ul class="project-list">
+              <li>Designed an “intent → action” pattern for future scheduling and integrations.</li>
+              <li>Experimented with local LLM workflows and prompt patterns for BI tasks (summaries, KPI narratives).</li>
+              <li>Built a resume/JD match helper concept to speed up tailoring and job applications.</li>
+            </ul>
+            <div class="project-links">
+              <a href="https://github.com/ShivaDongari/personal-ai-assistant" target="_blank" rel="noreferrer">GitHub Repo</a>
+              <a href="#">Demo Notes</a>
+            </div>
+          </article>
+
+          <!-- Project 7 -->
+          <article class="project-card">
+            <div class="project-tag-row">
+              <span class="project-pill">Personal · Automation</span>
+              <span class="project-impact">Impact: reliable daily job tracking</span>
+            </div>
+            <div class="project-title">Job Extraction from Portals (n8n Workflow)</div>
+            <div class="project-meta">n8n · HTTP/JSON · Standardization · CSV export</div>
+            <p class="project-body">
+              Automated extraction of job listings from portals with consistent fields for filtering and analysis.
+            </p>
+            <ul class="project-list">
+              <li>Handled pagination and flattened results to “one item = one job”.</li>
+              <li>Standardized schema: title, location, posted/created dates, URL, portal metadata.</li>
+              <li>Exported clean CSV and added sanity checks for “last 24 hours” filtering.</li>
+            </ul>
+            <div class="project-links">
+              <a href="#">Workflow Screenshots</a>
+              <a href="#">Sample Output CSV</a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- EVIDENCE -->
+      <section id="evidence">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Portfolio Evidence & Artifacts</div>
+            <div class="section-subtitle">What I can share during interviews (sanitized)</div>
+          </div>
+          <span class="pill">Ready to demo</span>
+        </div>
+
+        <p class="about-text">
+          I can demo projects live and share artifacts with sensitive data removed/replaced:
+        </p>
+
+        <div class="about-grid">
+          <div>
+            <div class="mini-heading">Power BI</div>
+            <ul class="bullet-list">
+              <li>PBIX with anonymized demo data (model + measures + visuals).</li>
+              <li>Measure library: time intelligence, variance, ratios, segment KPIs.</li>
+              <li>Model diagrams: facts/dimensions, relationships, filter paths.</li>
+              <li>Performance notes (what changed and why it improved).</li>
+            </ul>
+          </div>
+          <div>
+            <div class="mini-heading">Automation & GenAI</div>
+            <ul class="bullet-list">
+              <li>n8n workflow screenshots + sample output CSV schema.</li>
+              <li>GitHub repo for Personal AI Assistant (code + docs).</li>
+              <li>Templates/checklists for repeatable delivery and job-search automation.</li>
+              <li>Prompt patterns for KPI narratives and dashboard summaries.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div class="mini-heading">Sample Asset Types</div>
+          <div class="pill-row">
+            <span>PBIX (sanitized)</span>
+            <span>SQL scripts</span>
+            <span>Model diagrams (PNG/PDF)</span>
+            <span>n8n workflow screenshots</span>
+            <span>GitHub README / docs</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- CERTIFICATIONS -->
+      <section id="certs">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Education & Highlights</div>
+            <div class="section-subtitle">Academic foundation + notable work</div>
+          </div>
+          <span class="pill">Snapshot</span>
+        </div>
+
+        <ul class="bullet-list">
+          <li><strong>M.S. in Business Analytics</strong> — Lewis University (Romeoville, IL) · Graduated May 2025 · GPA: 3.72/4.0</li>
+          <li><strong>Bachelor of Commerce</strong> — Osmania University (Hyderabad, India) · 2014 – 2017</li>
+          <li>Notable: Recognized by Helen of Troy for timely delivery and quality dashboards.</li>
+          <li>Built governance reporting using Power BI automation patterns (REST APIs + PowerShell) for monitoring and reliability.</li>
+        </ul>
+
+        <p class="about-text" style="margin-top: 10px;">
+          I continuously upskill through hands-on builds: semantic models, DAX measure libraries, governance patterns,
+          and automation workflows (n8n + GenAI).
+        </p>
+      </section>
+
+      <!-- TIMELINE -->
+      <section id="timeline">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Timeline</div>
+            <div class="section-subtitle">Roles, education, and focus areas</div>
+          </div>
+          <span class="pill">Journey</span>
+        </div>
+
+        <ul class="timeline">
+          <li class="timeline-item">
+            <div class="timeline-year">Sep 2025 – Present</div>
+            <div class="timeline-title">Business Intelligence Specialist — Adway Services Inc (Remote, US)</div>
+            <div class="timeline-text">
+              Built daily/weekly monitoring dashboards and standardized KPI definitions; improved trust and repeatability for leadership reviews.
+            </div>
+          </li>
+
+          <li class="timeline-item">
+            <div class="timeline-year">Jul 2021 – Mar 2023</div>
+            <div class="timeline-title">Power BI Consultant — HCL Technologies (Hyderabad, India)</div>
+            <div class="timeline-text">
+              Delivered sales/operations dashboards and migrated reporting to Power BI with curated datasets and consistent measures.
+            </div>
+          </li>
+
+          <li class="timeline-item">
+            <div class="timeline-year">Feb 2018 – Jun 2021</div>
+            <div class="timeline-title">Power BI Developer — SreeMedhas Software Technologies (Hyderabad, India)</div>
+            <div class="timeline-text">
+              Built SQL reporting marts and Power BI dashboards for procurement, materials, and distribution performance; strengthened data quality and reporting consistency.
+            </div>
+          </li>
+
+          <li class="timeline-item">
+            <div class="timeline-year">May 2025</div>
+            <div class="timeline-title">M.S. Business Analytics — Lewis University (GPA: 3.72/4.0)</div>
+            <div class="timeline-text">
+              Capstone: predictive analytics for brain tumor management (R + SQL + Power BI), delivering model-driven insights via dashboards.
+            </div>
+          </li>
+
+          <li class="timeline-item">
+            <div class="timeline-year">Now</div>
+            <div class="timeline-title">Portfolio + Automation Projects</div>
+            <div class="timeline-text">
+              Building Personal AI Assistant (Python CLI), job extraction automation (n8n), and a sales analysis dashboard from scratch (MS SQL + Power BI).
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- CONTACT / RESUME -->
+      <section id="contact">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Contact</div>
+            <div class="section-subtitle">Let’s connect</div>
+          </div>
+          <span class="pill">Open to opportunities</span>
+        </div>
+
+        <p class="about-text">
+          I’m open to full-time roles in Illinois (Chicago & nearby suburbs) as a
+          <strong>Power BI Developer</strong>, <strong>BI Analyst</strong>, or <strong>Data Analyst (Power BI-focused)</strong>.
+        </p>
+
+        <ul class="bullet-list">
+          <li>Email: <a href="mailto:shiva-dongari@outlook.com">shiva-dongari@outlook.com</a></li>
+          <li>LinkedIn: <a href="https://www.linkedin.com/in/shiva-dongari/" target="_blank" rel="noreferrer">linkedin.com/in/shiva-dongari</a></li>
+          <li>GitHub: <a href="https://github.com/ShivaDongari" target="_blank" rel="noreferrer">github.com/ShivaDongari</a></li>
+          <li>Resume: <a href="https://1drv.ms/b/c/1fce87204f49702e/IQCYo_US0vnmSIwjV-gvP9oaARcJ1Oj92GqRuLTw6r5mjf8?e=aMbDHT" target="_blank" rel="noreferrer">Download Resume (PDF)</a></li>
+        </ul>
+
+        <p class="about-text" style="margin-top: 10px;">
+          If helpful, I can demo: (1) a sales/operations dashboard build (model + DAX), (2) an n8n extraction workflow,
+          and (3) Personal AI Assistant architecture.
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    © <span id="year"></span> · Portfolio of Shiva Kumar Dongari · Data Analyst (Power BI & GenAI)
+  </footer>
+
+  <script>
+    // Set current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
